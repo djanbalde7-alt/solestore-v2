@@ -55,3 +55,38 @@
   a bug, rounding would hide it.
 - Tests run inside the build: a failing test blocks the
   Vercel deployment.
+
+## 2026-09-25 — Tooling versions (J2)
+
+- `@types/node` aligned with the local Node major version:
+  Vitest 5 requires @types/node 22 or 24+, the Next.js
+  template shipped 20.
+- No `--force` / `--legacy-peer-deps`: they silence the
+  conflict locally, and Vercel's install would still fail.
+- Major versions pinned for core tools (`prisma@7`,
+  `vitest@5`): upgrades are a decision, not a side effect.
+- Vercel Node.js version set to the same major as local.
+
+## 2026-09-25 — Design system (J3)
+
+- Semantic color tokens in `@theme` (ink, muted, line, accent…):
+  components pick a role, not a shade.
+- Accent `#c2410c`, not `#ea580c`: white text on the brighter
+  orange fails contrast (3.6:1); the darker one passes (5.2:1).
+- `faint` never carries important text (2.6:1 on white).
+- Fonts in `@theme inline`: Next.js defines the font variable
+  on `<body>`, not on the root.
+- Template's `body { font-family: Arial }` removed: it was
+  overriding Geist since J1.
+- No dark mode: doubles design work per component, not needed
+  to sell. Backlog v3.
+- Components live in `components/`, not in `app/`: `app/`
+  holds routes only.
+- Buttons are at least 44px tall (`h-11`): minimum touch target.
+- `Button` vs `ButtonLink`: an action and a navigation are
+  different HTML elements, sharing one `buttonClasses()`.
+- `type="button"` by default: prevents accidental form submits.
+- Badges always carry text: color never carries meaning alone.
+- Tailwind classes are always written in full: generated
+  class names are never detected.
+- `/design` reference page, `noindex`.
