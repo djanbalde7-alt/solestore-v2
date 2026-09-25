@@ -9,3 +9,11 @@ export function formatPrice(cents: number): string {
   }
   return usd.format(cents / 100);
 }
+
+export function formatCount(
+  count: number,
+  singular: string,
+  plural = `${singular}s`
+): string {
+  return `${count} ${count === 1 ? singular : plural}`;
+}

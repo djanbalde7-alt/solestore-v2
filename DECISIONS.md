@@ -90,3 +90,28 @@
 - Tailwind classes are always written in full: generated
   class names are never detected.
 - `/design` reference page, `noindex`.
+
+## 2026-09-25 — Catalog pages (J3)
+
+- All reads go through `lib/queries.ts`: pages never call
+  Prisma directly, and `active: true` cannot be forgotten.
+- Explicit `select` on every query: cards do not load
+  descriptions they never show.
+- Deterministic ordering: `createdAt` ties broken by `id`.
+- Out-of-stock products listed last, never hidden: hiding
+  breaks shared links. `inStockFirst` is pure and tested.
+- Home features in-stock products only: a featured product
+  must be buyable.
+- Low-stock badge only at 5 or fewer, and only when true:
+  no invented urgency.
+- ISR, `revalidate = 3600` on catalog pages; admin writes will
+  call `revalidatePath` (J9).
+- `generateStaticParams` prebuilds the category pages; new
+  categories are rendered on first visit.
+- React `cache()` on `getCategoryBySlug`: metadata and page
+  share one query.
+- `next/image` with `sizes` matching the 2/3/4-column grid:
+  without it, cards download full-width images.
+- Empty states require an action (enforced by the type).
+- Skeletons reuse the grid's exact classes: no layout shift.
+- `formatCount` handles "1 pair" vs "10 pairs".
